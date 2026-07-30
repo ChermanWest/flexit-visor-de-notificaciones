@@ -2,12 +2,19 @@ name: Flexit Watcher
 
 on:
   schedule:
-    # Cada 10 minutos. Ajusta si quieres más o menos frecuencia.
-    - cron: "*/10 * * * *"
+    # Se dispara cada 5 minutos, pero la mayoría de esas veces el propio
+    # script decide "todavía no toca" y no hace nada (ver scheduler_gate.py).
+    # El intervalo real entre revisiones activas es aleatorio, de 8 a 12 min,
+    # y solo entre 08:00 y 21:00 hora de Chile.
+    - cron: "*/5 * * * *"
   workflow_dispatch: {}   # permite correrlo manualmente desde la pestaña Actions
 
 permissions:
   contents: write
+
+concurrency:
+  group: flexit-watcher
+  cancel-in-progress: false   # si ya hay una corriendo, la siguiente espera en fila (no se cancela ni corre en paralelo)
 
 jobs:
   check:
@@ -16,24 +23,33 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: ¿Corresponde revisar ahora?
+        id: gate
+        run: python3 scheduler_gate.py
+
       - name: Set up Python
+        if: steps.gate.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install Python deps
+        if: steps.gate.outputs.should_run == 'true'
         run: pip install -r requirements.txt
 
       - name: Cache Playwright browsers
+        if: steps.gate.outputs.should_run == 'true'
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
 
       - name: Install Playwright browsers
+        if: steps.gate.outputs.should_run == 'true'
         run: python -m playwright install --with-deps chromium
 
       - name: Run watcher
+        if: steps.gate.outputs.should_run == 'true'
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           REGION_TEXT: "Arica y Parinacota"
@@ -51,9 +67,11 @@ jobs:
           if-no-files-found: ignore
 
       - name: Commit updated state
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add seen_jobs.json
-          git diff --quiet --cached || git commit -m "Actualiza ofertas ya notificadas [skip ci]"
+          git add seen_jobs.json next_run.json
+          git diff --quiet --cached || git commit -m "Actualiza estado del watcher [skip ci]"
+          git pull --rebase origin main
           git push

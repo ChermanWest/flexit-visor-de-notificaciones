@@ -1,0 +1,59 @@
+name: Flexit Watcher
+
+on:
+  schedule:
+    # Cada 10 minutos. Ajusta si quieres más o menos frecuencia.
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}   # permite correrlo manualmente desde la pestaña Actions
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run watcher
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          REGION_TEXT: "Arica y Parinacota"
+        run: python check_flexit.py
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-evidence
+          path: |
+            debug.png
+            debug_page_text.txt
+          retention-days: 3
+          if-no-files-found: ignore
+
+      - name: Commit updated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add seen_jobs.json
+          git diff --quiet --cached || git commit -m "Actualiza ofertas ya notificadas [skip ci]"
+          git push

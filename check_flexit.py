@@ -19,6 +19,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -57,9 +58,48 @@ def save_seen(seen: set) -> None:
     STATE_FILE.write_text(json.dumps(sorted(seen), ensure_ascii=False, indent=2))
 
 
+def parse_start_date(fechas: str):
+    """Convierte 'dd/mm/aa - dd/mm/aa' en un datetime usando la primera fecha.
+    Devuelve None si no se puede interpretar."""
+    try:
+        primera = fechas.split("-")[0].strip()
+        return datetime.strptime(primera, "%d/%m/%y")
+    except Exception:
+        return None
+
+
 def job_id(title: str, empresa: str, fechas: str, horas: str) -> str:
     raw = f"{title.strip()}|{empresa.strip()}|{fechas.strip()}|{horas.strip()}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def click_search_button(page) -> bool:
+    """Intenta apretar el botón de la lupa/buscar para aplicar el filtro de
+    región. Prueba varias formas de encontrarlo porque no conocemos el
+    markup exacto del sitio."""
+
+    candidatos = [
+        page.get_by_role("button", name=re.compile("buscar", re.IGNORECASE)),
+        page.locator("button[aria-label*='buscar' i]"),
+        page.locator("button[aria-label*='search' i]"),
+        page.locator("[class*='search' i][role='button']"),
+        page.locator("button:has(svg[class*='search' i])"),
+    ]
+    for cand in candidatos:
+        try:
+            if cand.count() > 0:
+                cand.first.click(timeout=3000)
+                return True
+        except Exception:
+            continue
+
+    # Último recurso: presionar Enter, por si el buscador envía el
+    # formulario con el teclado.
+    try:
+        page.keyboard.press("Enter")
+        return True
+    except Exception:
+        return False
 
 
 def select_region(page) -> bool:
@@ -108,6 +148,9 @@ def fetch_jobs() -> list[dict]:
         page.goto(URL, wait_until="networkidle", timeout=60000)
 
         selected = select_region(page)
+        if selected:
+            page.wait_for_timeout(400)
+            click_search_button(page)
         page.wait_for_timeout(2500)
         try:
             page.wait_for_load_state("networkidle", timeout=15000)
@@ -165,6 +208,36 @@ def notify(job: dict) -> None:
         print("Error enviando notificación:", e, file=sys.stderr)
 
 
+def notify_status(total: int, latest_job: dict | None) -> None:
+    if not NTFY_TOPIC:
+        return
+
+    if latest_job:
+        cuerpo = (
+            f"{total} oferta(s) visibles ahora.\n"
+            f"Más reciente: {latest_job['title']} — {latest_job['empresa']}\n"
+            f"📅 {latest_job['fechas']}"
+        )
+    else:
+        cuerpo = "0 ofertas visibles ahora en tu región."
+
+    try:
+        requests.post(
+            f"https://ntfy.sh/{NTFY_TOPIC}",
+            data=cuerpo.encode("utf-8"),
+            headers={
+                "Title": "✅ Verificación Flexit Watcher".encode("utf-8"),
+                "Click": URL,
+                "Tags": "mag",
+                "Priority": "default",
+            },
+            timeout=10,
+        )
+        print("Notificación de estado enviada.")
+    except Exception as e:
+        print("Error enviando notificación de estado:", e, file=sys.stderr)
+
+
 def main():
     seen = load_seen()
     jobs = fetch_jobs()
@@ -181,6 +254,18 @@ def main():
 
     save_seen(seen)
     print(f"Ofertas nuevas notificadas: {new_count}")
+
+    # Notificación de estado: la fecha más reciente encontrada, para poder
+    # verificar de un vistazo que el script está leyendo datos actuales.
+    latest_job = None
+    latest_date = None
+    for job in jobs:
+        d = parse_start_date(job["fechas"])
+        if d and (latest_date is None or d > latest_date):
+            latest_date = d
+            latest_job = job
+
+    notify_status(len(jobs), latest_job)
 
 
 if __name__ == "__main__":

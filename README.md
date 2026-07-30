@@ -71,6 +71,18 @@ Edita esta línea en `.github/workflows/check.yml`:
 Por ejemplo `*/15 * * * *` para cada 15 minutos (ojo con el límite de
 minutos gratis si el repo es privado).
 
+## Notificación de verificación
+
+Además de avisarte cuando aparece una oferta nueva, en **cada corrida** el
+script te manda una notificación de estado ("✅ Verificación Flexit
+Watcher") con el total de ofertas visibles y cuál es la más reciente
+(según su fecha de inicio). Sirve para confirmar de un vistazo que el
+script sigue leyendo datos actuales del sitio.
+
+Ojo: esto significa una notificación extra cada 15-30 min, todo el
+tiempo (no solo cuando hay algo nuevo). Si más adelante te resulta
+molesta, dime y la quito o la hacemos menos frecuente.
+
 ## ¿Por qué no se repiten los avisos?
 
 El script guarda un identificador de cada oferta ya notificada en

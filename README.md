@@ -9,12 +9,22 @@ que dejar tu computador encendido.
 ⚠️ **Importante y honesto:** el sitio de Flexit carga las ofertas de forma
 dinámica (JavaScript) después de elegir la región, así que el script usa un
 navegador automatizado (Playwright) para simular ese clic y leer el
-resultado. No tuve forma de probarlo contra el sitio en vivo desde este
-entorno, así que es muy posible que necesites un pequeño ajuste la primera
-vez. Por eso el workflow guarda automáticamente una captura de pantalla
-(`debug.png`) y el texto de la página (`debug_page_text.txt`) en cada
-ejecución — si algo no funciona, mándame esos dos archivos y ajusto el
-script contigo.
+resultado. Por eso el workflow guarda automáticamente una captura de
+pantalla (`debug.png`) y el texto de la página (`debug_page_text.txt`) en
+cada ejecución — si algo no funciona, mándame esos dos archivos y ajusto
+el script contigo.
+
+**Bug corregido (30/07/26):** con el `debug_page_text.txt` de una
+ejecución real se detectó que el patrón que reconoce cada tarjeta de
+oferta no consideraba las líneas en blanco que el sitio deja entre el
+título, el "$$$" y el nombre de la empresa. Por eso el script nunca
+reconocía ninguna oferta, aunque la página cargara perfecto. Ya está
+corregido y probado contra ese mismo archivo de evidencia (reconoce las 4
+ofertas correctamente). También se cambió la lógica de aviso: antes
+mandaba una notificación por cada oferta nueva más un aviso de estado
+cada 8-12 min; ahora compara el escaneo actual contra el anterior y manda
+un solo aviso cuando hay una diferencia real, con la empresa y fecha de
+inicio de cada oferta nueva (ver más abajo).
 
 ## Paso 1: Instala la app ntfy en tu teléfono
 
@@ -95,22 +105,33 @@ las 13 horas activas al día puede haber entre ~65 y ~100 revisiones reales
 los ~2000 minutos gratis al mes. Te recomiendo que el repo sea
 **público** — ahí los minutos de Actions son ilimitados y gratis.
 
-## Notificación de verificación
+## ¿Cuándo llega la notificación?
 
-Además de avisarte cuando aparece una oferta nueva, en **cada corrida** el
-script te manda una notificación de estado ("✅ Verificación Flexit
-Watcher") con el total de ofertas visibles y cuál es la más reciente
-(según su fecha de inicio). Sirve para confirmar de un vistazo que el
-script sigue leyendo datos actuales del sitio.
+El script compara la lista de ofertas de esta revisión contra la lista de
+la revisión anterior. **Solo te avisa cuando hay una diferencia real**
+(apareció una oferta nueva, o desapareció una que estaba antes) — si todo
+sigue igual, no manda nada. Así no recibes un aviso cada 8-12 minutos por
+las puras.
 
-Ojo: esto significa una notificación extra cada 8-12 min durante el
-horario activo (8:00-21:00), no solo cuando hay algo nuevo. Si más
-adelante te resulta molesta, dime y la quito o la hacemos menos frecuente.
+El mensaje lista cada oferta nueva con la empresa y la fecha en que
+empieza, por ejemplo:
+
+```
+📢 2 oferta(s) nueva(s) en tu región
+• Falabella Arica — empieza 30/07/26 (Apoyo Omnicanal)
+• Jumbo Arica — empieza 01/08/26 (Repositor Nocturno)
+```
 
 ## ¿Por qué no se repiten los avisos?
 
-El script guarda un identificador de cada oferta ya notificada en
+El script guarda el detalle de las ofertas de la última revisión en
 `seen_jobs.json`, y ese archivo se actualiza solo en el repo después de
 cada corrida. Si quieres "reiniciar" y que te vuelva a avisar de todo lo
-que esté publicado ahora mismo, borra el contenido de ese archivo y déjalo
-como `[]`.
+que esté publicado ahora mismo (como si nunca hubiera revisado antes),
+borra el contenido de ese archivo y déjalo como:
+
+```json
+{
+  "jobs": {}
+}
+```

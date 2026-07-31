@@ -34,10 +34,15 @@ REGION_TEXT = os.environ.get("REGION_TEXT", "Arica y Parinacota")
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "").strip()
 
 # Patrón que reconoce cada tarjeta de oferta a partir del texto visible de la
-# página, basado en la estructura observada: Titulo / $$$ / Empresa Lugar /
-# fecha - fecha / hora - hora
+# página, basado en la estructura observada: Titulo / (línea en blanco) / $$$ /
+# (línea en blanco) / Empresa Lugar / fecha - fecha / hora - hora
+#
+# OJO: entre el título y "$$$", y entre "$$$" y la empresa, la página deja
+# una línea en blanco (osea DOS saltos de línea, no uno). Por eso usamos
+# \n+ en vez de \n en esos dos puntos: es el fallo que hacía que nunca se
+# reconociera ninguna oferta.
 JOB_PATTERN = re.compile(
-    r"(?P<title>[^\n$]{3,80})\n\${1,3}\n"
+    r"(?P<title>[^\n$]{3,80})\n+\${1,3}\n+"
     r"(?P<empresa>[^\n]{3,80})\n"
     r"(?P<fechas>\d{2}/\d{2}/\d{2}\s*-\s*\d{2}/\d{2}/\d{2})\n"
     r"(?P<horas>\d{2}:\d{2}\s*-\s*\d{2}:\d{2})",
@@ -45,17 +50,28 @@ JOB_PATTERN = re.compile(
 )
 
 
-def load_seen() -> set:
-    if STATE_FILE.exists():
-        try:
-            return set(json.loads(STATE_FILE.read_text()))
-        except Exception:
-            return set()
-    return set()
+def load_previous_jobs() -> dict:
+    """Devuelve el snapshot de ofertas de la revisión anterior como
+    {job_id: {title, empresa, fechas, horas}}."""
+    if not STATE_FILE.exists():
+        return {}
+    try:
+        data = json.loads(STATE_FILE.read_text())
+    except Exception:
+        return {}
+
+    if isinstance(data, dict) and "jobs" in data:
+        return data["jobs"]
+    # Formato antiguo (solo lista de hashes, sin detalle de la oferta):
+    # no tenemos con qué armar el mensaje, así que lo tratamos como vacío
+    # y a partir de ahora se guarda el nuevo formato con detalle.
+    return {}
 
 
-def save_seen(seen: set) -> None:
-    STATE_FILE.write_text(json.dumps(sorted(seen), ensure_ascii=False, indent=2))
+def save_current_jobs(jobs_by_id: dict) -> None:
+    STATE_FILE.write_text(
+        json.dumps({"jobs": jobs_by_id}, ensure_ascii=False, indent=2)
+    )
 
 
 def parse_start_date(fechas: str):
@@ -183,18 +199,33 @@ def fetch_jobs() -> list[dict]:
     return jobs
 
 
-def notify(job: dict) -> None:
+def notify_update(new_jobs: list[dict], removed_count: int) -> None:
+    """Manda UNA sola notificación cuando hay diferencias entre el
+    escaneo actual y el anterior, listando cada oferta nueva con la
+    empresa y la fecha en que empieza."""
+
     if not NTFY_TOPIC:
-        print("NTFY_TOPIC no configurado, no se puede notificar:", job)
+        print("NTFY_TOPIC no configurado, no se puede notificar. Ofertas nuevas:", new_jobs)
         return
 
-    title = "📢 Nueva oferta en tu región"
-    message = f"{job['title']}\n{job['empresa']}\n📅 {job['fechas']}  🕐 {job['horas']}"
+    lineas = []
+    for job in new_jobs:
+        fecha_inicio = job["fechas"].split("-")[0].strip()
+        lineas.append(f"• {job['empresa']} — empieza {fecha_inicio} ({job['title']})")
+
+    cuerpo = "\n".join(lineas) if lineas else "Hubo cambios en las ofertas de tu región."
+    if removed_count:
+        cuerpo += f"\n\n({removed_count} oferta(s) que ya no están disponibles)"
+
+    if new_jobs:
+        title = f"📢 {len(new_jobs)} oferta(s) nueva(s) en tu región"
+    else:
+        title = "ℹ️ Cambios en las ofertas de tu región"
 
     try:
         requests.post(
             f"https://ntfy.sh/{NTFY_TOPIC}",
-            data=message.encode("utf-8"),
+            data=cuerpo.encode("utf-8"),
             headers={
                 "Title": title.encode("utf-8"),
                 "Click": URL,
@@ -203,69 +234,40 @@ def notify(job: dict) -> None:
             },
             timeout=10,
         )
-        print("Notificación enviada:", job)
+        print("Notificación de actualización enviada.")
     except Exception as e:
         print("Error enviando notificación:", e, file=sys.stderr)
 
 
-def notify_status(total: int, latest_job: dict | None) -> None:
-    if not NTFY_TOPIC:
-        return
-
-    if latest_job:
-        cuerpo = (
-            f"{total} oferta(s) visibles ahora.\n"
-            f"Más reciente: {latest_job['title']} — {latest_job['empresa']}\n"
-            f"📅 {latest_job['fechas']}"
-        )
-    else:
-        cuerpo = "0 ofertas visibles ahora en tu región."
-
-    try:
-        requests.post(
-            f"https://ntfy.sh/{NTFY_TOPIC}",
-            data=cuerpo.encode("utf-8"),
-            headers={
-                "Title": "✅ Verificación Flexit Watcher".encode("utf-8"),
-                "Click": URL,
-                "Tags": "mag",
-                "Priority": "default",
-            },
-            timeout=10,
-        )
-        print("Notificación de estado enviada.")
-    except Exception as e:
-        print("Error enviando notificación de estado:", e, file=sys.stderr)
-
-
 def main():
-    seen = load_seen()
+    previous_jobs = load_previous_jobs()  # {job_id: job_dict}
+    previous_ids = set(previous_jobs.keys())
+
     jobs = fetch_jobs()
 
-    print(f"Ofertas encontradas en esta pasada: {len(jobs)}")
-
-    new_count = 0
+    current_jobs = {}
     for job in jobs:
         jid = job_id(job["title"], job["empresa"], job["fechas"], job["horas"])
-        if jid not in seen:
-            notify(job)
-            seen.add(jid)
-            new_count += 1
+        current_jobs[jid] = job
+    current_ids = set(current_jobs.keys())
 
-    save_seen(seen)
-    print(f"Ofertas nuevas notificadas: {new_count}")
+    new_ids = current_ids - previous_ids
+    removed_ids = previous_ids - current_ids
 
-    # Notificación de estado: la fecha más reciente encontrada, para poder
-    # verificar de un vistazo que el script está leyendo datos actuales.
-    latest_job = None
-    latest_date = None
-    for job in jobs:
-        d = parse_start_date(job["fechas"])
-        if d and (latest_date is None or d > latest_date):
-            latest_date = d
-            latest_job = job
+    print(f"Ofertas encontradas en esta pasada: {len(current_jobs)}")
+    print(f"Nuevas respecto a la revisión anterior: {len(new_ids)}")
+    print(f"Ya no disponibles respecto a la revisión anterior: {len(removed_ids)}")
 
-    notify_status(len(jobs), latest_job)
+    if new_ids or removed_ids:
+        new_jobs = [current_jobs[i] for i in new_ids]
+        # Ordena las ofertas nuevas por fecha de inicio para que el mensaje
+        # sea más fácil de leer; las que no se puedan interpretar van al final.
+        new_jobs.sort(key=lambda j: parse_start_date(j["fechas"]) or datetime.max)
+        notify_update(new_jobs, len(removed_ids))
+    else:
+        print("Sin cambios respecto a la revisión anterior, no se notifica.")
+
+    save_current_jobs(current_jobs)
 
 
 if __name__ == "__main__":

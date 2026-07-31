@@ -4,9 +4,15 @@ on:
   schedule:
     # Se dispara cada 5 minutos, pero la mayoría de esas veces el propio
     # script decide "todavía no toca" y no hace nada (ver scheduler_gate.py).
-    # El intervalo real entre revisiones activas es aleatorio, de 8 a 12 min,
-    # y solo entre 08:00 y 21:00 hora de Chile.
-    - cron: "*/5 * * * *"
+    # El intervalo real entre revisiones activas es aleatorio, de 13 a 17 min
+    # (~15 min en promedio), y solo entre 08:00 y 21:00 hora de Chile.
+    #
+    # OJO con el minuto elegido: GitHub avisa que los cron alineados a
+    # marcas "redondas" (minuto 0, 5, 10, 15...) sufren más retraso, porque
+    # muchísimos repos disparan justo ahí y todos compiten por el mismo
+    # turno. Por eso este cron dispara en el minuto 2, 7, 12, 17... en vez
+    # de 0, 5, 10, 15, para caer en un horario menos congestionado.
+    - cron: "2-59/5 * * * *"
   workflow_dispatch: {}   # permite correrlo manualmente desde la pestaña Actions
 
 permissions:

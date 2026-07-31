@@ -25,8 +25,8 @@ TZ = ZoneInfo("America/Santiago")
 
 HORA_INICIO = 8   # 08:00
 HORA_FIN = 21     # 21:00 (9 pm), exclusivo
-MIN_INTERVALO_MIN = 8
-MAX_INTERVALO_MIN = 12
+MIN_INTERVALO_MIN = 13
+MAX_INTERVALO_MIN = 17
 
 
 def main():

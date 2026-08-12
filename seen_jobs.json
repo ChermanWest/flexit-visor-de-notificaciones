@@ -6,6 +6,12 @@
       "fechas": "12/08/26 - 12/08/26",
       "horas": "08:00 - 14:30"
     },
+    "8d7655a4051b1dac": {
+      "title": "Apoyo Evento General",
+      "empresa": "Falabella Arica",
+      "fechas": "12/08/26 - 12/08/26",
+      "horas": "16:00 - 20:00"
+    },
     "21b1d03c8f3a4f32": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
@@ -17,12 +23,6 @@
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "12/08/26 - 14/08/26",
       "horas": "08:00 - 14:30"
-    },
-    "8d7655a4051b1dac": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "12/08/26 - 12/08/26",
-      "horas": "16:00 - 20:00"
     }
   }
 }

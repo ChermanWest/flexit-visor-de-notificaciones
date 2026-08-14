@@ -1,10 +1,10 @@
 {
   "jobs": {
-    "c9eca5045f9a9a13": {
+    "6cd47392cd1f9338": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
       "fechas": "14/08/26 - 14/08/26",
-      "horas": "12:30 - 16:30"
+      "horas": "08:30 - 12:30"
     },
     "b962e87baa93ba18": {
       "title": "Auxiliar de Tienda",
@@ -12,17 +12,17 @@
       "fechas": "14/08/26 - 14/08/26",
       "horas": "12:00 - 17:00"
     },
-    "e64e77d30a86fbc1": {
+    "c9eca5045f9a9a13": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
       "fechas": "14/08/26 - 14/08/26",
-      "horas": "16:30 - 20:30"
+      "horas": "12:30 - 16:30"
     },
-    "6cd47392cd1f9338": {
-      "title": "Apoyo Evento General",
+    "fdb82e9172023378": {
+      "title": "Asistente Abastecimiento",
       "empresa": "Falabella Arica",
       "fechas": "14/08/26 - 14/08/26",
-      "horas": "08:30 - 12:30"
+      "horas": "09:30 - 19:00"
     }
   }
 }

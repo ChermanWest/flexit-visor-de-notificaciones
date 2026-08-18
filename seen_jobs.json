@@ -12,17 +12,17 @@
       "fechas": "20/08/26 - 21/08/26",
       "horas": "15:30 - 20:30"
     },
-    "9ec9fe11e0a97469": {
-      "title": "Auxiliar de Tienda",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "18/08/26 - 18/08/26",
-      "horas": "09:00 - 14:00"
-    },
     "3814ee71aefe686c": {
       "title": "Asistente Abastecimiento",
       "empresa": "Falabella Arica",
       "fechas": "18/08/26 - 18/08/26",
       "horas": "09:00 - 19:00"
+    },
+    "9ec9fe11e0a97469": {
+      "title": "Auxiliar de Tienda",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "18/08/26 - 18/08/26",
+      "horas": "09:00 - 14:00"
     }
   }
 }

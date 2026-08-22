@@ -1,5 +1,11 @@
 {
   "jobs": {
+    "58b60ae5155877e1": {
+      "title": "Apoyo Evento General",
+      "empresa": "Falabella Arica",
+      "fechas": "22/08/26 - 22/08/26",
+      "horas": "10:00 - 14:00"
+    },
     "c9683d5e706879f5": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
@@ -17,12 +23,6 @@
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "22/08/26 - 23/08/26",
       "horas": "15:30 - 20:30"
-    },
-    "58b60ae5155877e1": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "22/08/26 - 22/08/26",
-      "horas": "10:00 - 14:00"
     }
   }
 }

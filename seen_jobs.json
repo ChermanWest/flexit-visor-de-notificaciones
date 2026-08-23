@@ -12,17 +12,17 @@
       "fechas": "28/08/26 - 28/08/26",
       "horas": "09:00 - 14:00"
     },
-    "db03c4c1eef2d8ac": {
-      "title": "Auxiliar de Cajas",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "27/08/26 - 27/08/26",
-      "horas": "15:30 - 20:30"
-    },
     "65af5b207cc3865e": {
       "title": "Auxiliar de Cajas",
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "27/08/26 - 27/08/26",
       "horas": "09:00 - 14:00"
+    },
+    "db03c4c1eef2d8ac": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "27/08/26 - 27/08/26",
+      "horas": "15:30 - 20:30"
     }
   }
 }

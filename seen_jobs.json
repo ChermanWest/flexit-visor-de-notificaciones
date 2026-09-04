@@ -6,23 +6,23 @@
       "fechas": "04/09/26 - 04/09/26",
       "horas": "08:30 - 12:30"
     },
-    "9a2ee440a7fe1ace": {
-      "title": "Apoyo Evento General",
+    "b678005af39b1f25": {
+      "title": "Asistente Abastecimiento",
       "empresa": "Falabella Arica",
       "fechas": "04/09/26 - 04/09/26",
-      "horas": "16:30 - 20:30"
+      "horas": "08:30 - 12:30"
+    },
+    "6fd9662c039daf70": {
+      "title": "Asistente Abastecimiento",
+      "empresa": "Falabella Arica",
+      "fechas": "04/09/26 - 04/09/26",
+      "horas": "09:00 - 19:00"
     },
     "20bf6d435cdab203": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
       "fechas": "04/09/26 - 04/09/26",
       "horas": "12:30 - 16:30"
-    },
-    "fa411cbf29955aa4": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "03/09/26 - 03/09/26",
-      "horas": "08:30 - 12:30"
     }
   }
 }

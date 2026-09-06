@@ -1,11 +1,5 @@
 {
   "jobs": {
-    "073437383b79a1be": {
-      "title": "Auxiliar de Tienda",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "07/09/26 - 07/09/26",
-      "horas": "09:00 - 15:30"
-    },
     "c1cc73c5bbfca4cc": {
       "title": "Auxiliar de Cajas",
       "empresa": "Homecenter Sodimac Arica",
@@ -18,11 +12,17 @@
       "fechas": "07/09/26 - 10/09/26",
       "horas": "15:30 - 20:30"
     },
-    "3006c18239e8f490": {
+    "073437383b79a1be": {
+      "title": "Auxiliar de Tienda",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "07/09/26 - 07/09/26",
+      "horas": "09:00 - 15:30"
+    },
+    "c2e81565d369e8a7": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
       "fechas": "06/09/26 - 06/09/26",
-      "horas": "13:00 - 17:00"
+      "horas": "10:00 - 14:00"
     }
   }
 }

@@ -1,28 +1,28 @@
 {
   "jobs": {
-    "46aeb088c252f7e6": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "10/09/26 - 10/09/26",
-      "horas": "16:30 - 20:30"
+    "77f440979f722374": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "12/09/26 - 12/09/26",
+      "horas": "15:30 - 20:30"
     },
-    "7eddfdbf48a6a494": {
-      "title": "Asistente Abastecimiento",
-      "empresa": "Falabella Arica",
-      "fechas": "10/09/26 - 10/09/26",
-      "horas": "09:00 - 19:00"
+    "a7067fdac235d618": {
+      "title": "Auxiliar de Tienda",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "11/09/26 - 11/09/26",
+      "horas": "08:30 - 15:30"
     },
-    "b6ce9943a754b2bf": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "10/09/26 - 10/09/26",
-      "horas": "12:30 - 16:30"
+    "72a5ccf2fd8fbf2f": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "11/09/26 - 13/09/26",
+      "horas": "09:00 - 14:00"
     },
-    "1cba937ea264fef1": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "10/09/26 - 10/09/26",
-      "horas": "12:00 - 20:00"
+    "e9f10091ad99a9be": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "11/09/26 - 11/09/26",
+      "horas": "15:30 - 20:30"
     }
   }
 }

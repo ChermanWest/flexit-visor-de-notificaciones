@@ -6,23 +6,23 @@
       "fechas": "27/09/26 - 27/09/26",
       "horas": "15:00 - 20:00"
     },
-    "8f5067b856274f08": {
-      "title": "Auxiliar de Venta",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "26/09/26 - 27/09/26",
-      "horas": "10:00 - 17:00"
-    },
     "dc31b36fd51ad4d3": {
       "title": "Auxiliar de Tienda",
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "26/09/26 - 27/09/26",
       "horas": "11:30 - 21:00"
     },
-    "8950dfbe1672be8e": {
+    "8f5067b856274f08": {
+      "title": "Auxiliar de Venta",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "26/09/26 - 27/09/26",
+      "horas": "10:00 - 17:00"
+    },
+    "4271b7479ab7b70b": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
-      "fechas": "24/09/26 - 24/09/26",
-      "horas": "10:00 - 15:00"
+      "fechas": "25/09/26 - 25/09/26",
+      "horas": "12:30 - 16:30"
     }
   }
 }

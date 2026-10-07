@@ -1,28 +1,28 @@
 {
   "jobs": {
-    "f582aee329ddc47b": {
-      "title": "Auxiliar de Retiro en Tienda",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "10/10/26 - 11/10/26",
-      "horas": "09:30 - 18:30"
-    },
     "10e1214e0c591981": {
       "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "10/10/26 - 11/10/26",
       "horas": "11:15 - 20:30"
     },
-    "7787084949e7a1d9": {
-      "title": "Auxiliar de Venta",
+    "f582aee329ddc47b": {
+      "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
-      "fechas": "07/10/26 - 07/10/26",
-      "horas": "15:30 - 20:30"
+      "fechas": "10/10/26 - 11/10/26",
+      "horas": "09:30 - 18:30"
     },
-    "f7c89333fe23ebf2": {
-      "title": "Auxiliar de Venta",
-      "empresa": "Homecenter Sodimac Arica",
+    "8f4cfb6360b6db60": {
+      "title": "Asistente Abastecimiento",
+      "empresa": "Falabella Arica",
       "fechas": "07/10/26 - 07/10/26",
-      "horas": "08:30 - 13:30"
+      "horas": "09:00 - 19:00"
+    },
+    "ea33eb5978ba23c6": {
+      "title": "Apoyo Evento General",
+      "empresa": "Falabella Arica",
+      "fechas": "07/10/26 - 07/10/26",
+      "horas": "08:30 - 12:30"
     }
   }
 }

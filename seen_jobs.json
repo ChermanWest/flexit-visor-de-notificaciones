@@ -1,28 +1,28 @@
 {
   "jobs": {
-    "10e1214e0c591981": {
+    "74da6e5f9953c127": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "18/10/26 - 18/10/26",
+      "horas": "15:15 - 20:15"
+    },
+    "c2dfb6068cd5ed24": {
       "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
-      "fechas": "10/10/26 - 11/10/26",
-      "horas": "11:15 - 20:30"
+      "fechas": "18/10/26 - 18/10/26",
+      "horas": "09:30 - 20:30"
     },
-    "f582aee329ddc47b": {
+    "1822fbd0f6177233": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "18/10/26 - 18/10/26",
+      "horas": "09:00 - 14:00"
+    },
+    "769d383bf53f15e5": {
       "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
-      "fechas": "10/10/26 - 11/10/26",
-      "horas": "09:30 - 18:30"
-    },
-    "cca384eb4a14fd1c": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "09/10/26 - 09/10/26",
-      "horas": "08:30 - 12:30"
-    },
-    "dfbfb287acb2b74c": {
-      "title": "Apoyo Omnicanal",
-      "empresa": "Falabella Arica",
-      "fechas": "09/10/26 - 09/10/26",
-      "horas": "09:00 - 19:00"
+      "fechas": "17/10/26 - 17/10/26",
+      "horas": "10:00 - 21:00"
     }
   }
 }

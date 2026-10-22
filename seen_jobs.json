@@ -6,23 +6,23 @@
       "fechas": "25/10/26 - 25/10/26",
       "horas": "13:45 - 20:15"
     },
-    "71e67313b93a83d5": {
-      "title": "Auxiliar de Retiro en Tienda",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "24/10/26 - 25/10/26",
-      "horas": "09:00 - 14:00"
-    },
     "6384f4b1e96992a7": {
       "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "24/10/26 - 25/10/26",
       "horas": "15:15 - 20:15"
     },
-    "4d622ec2a131ba2f": {
-      "title": "Auxiliar de Tienda",
+    "71e67313b93a83d5": {
+      "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
+      "fechas": "24/10/26 - 25/10/26",
+      "horas": "09:00 - 14:00"
+    },
+    "7cf64af8dc514d2e": {
+      "title": "Apoyo Evento General",
+      "empresa": "Falabella Arica",
       "fechas": "22/10/26 - 22/10/26",
-      "horas": "16:00 - 21:00"
+      "horas": "16:30 - 20:30"
     }
   }
 }

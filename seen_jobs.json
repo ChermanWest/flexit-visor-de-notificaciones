@@ -1,5 +1,11 @@
 {
   "jobs": {
+    "0a20825a3991a850": {
+      "title": "Auxiliar de Cajas",
+      "empresa": "Homecenter Sodimac Arica",
+      "fechas": "01/11/26 - 01/11/26",
+      "horas": "15:45 - 20:45"
+    },
     "f9fb2a0bf56a6eca": {
       "title": "Auxiliar de Retiro en Tienda",
       "empresa": "Homecenter Sodimac Arica",
@@ -11,12 +17,6 @@
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "01/11/26 - 01/11/26",
       "horas": "09:00 - 14:00"
-    },
-    "0a20825a3991a850": {
-      "title": "Auxiliar de Cajas",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "01/11/26 - 01/11/26",
-      "horas": "15:45 - 20:45"
     },
     "12357eb7eb67194d": {
       "title": "Auxiliar de Cajas",

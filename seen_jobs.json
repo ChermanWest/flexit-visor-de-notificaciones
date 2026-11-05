@@ -1,28 +1,28 @@
 {
   "jobs": {
+    "432976d6773c5e6c": {
+      "title": "Apoyo Senior",
+      "empresa": "FE147 - Ferouch Arica",
+      "fechas": "08/11/26 - 08/11/26",
+      "horas": "10:30 - 21:00"
+    },
+    "81ee6f1e57bf5e57": {
+      "title": "Apoyo Senior",
+      "empresa": "FE147 - Ferouch Arica",
+      "fechas": "07/11/26 - 07/11/26",
+      "horas": "10:30 - 21:00"
+    },
     "f9037a9d62cbdaa9": {
       "title": "Auxiliar de Tienda",
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "06/11/26 - 06/11/26",
       "horas": "08:30 - 15:00"
     },
-    "2dc5e98dadd892b2": {
-      "title": "Asistente Abastecimiento",
-      "empresa": "Falabella Arica",
-      "fechas": "05/11/26 - 05/11/26",
-      "horas": "10:00 - 20:00"
-    },
-    "74a33d9e02e9f1ac": {
-      "title": "Auxiliar de Tienda",
-      "empresa": "Homecenter Sodimac Arica",
-      "fechas": "05/11/26 - 06/11/26",
-      "horas": "08:00 - 15:00"
-    },
-    "3ff676d902cd64d2": {
+    "161f5736a06d1b2e": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
       "fechas": "05/11/26 - 05/11/26",
-      "horas": "12:30 - 16:30"
+      "horas": "16:30 - 20:30"
     }
   }
 }

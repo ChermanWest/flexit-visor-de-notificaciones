@@ -1,28 +1,28 @@
 {
   "jobs": {
-    "bb5dfafe24043a92": {
+    "e2446e3a30c79d0a": {
       "title": "Apoyo Evento General",
       "empresa": "Falabella Arica",
       "fechas": "18/11/26 - 18/11/26",
-      "horas": "12:30 - 16:30"
+      "horas": "11:00 - 20:00"
     },
-    "40e177bab01e4763": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
+    "de3d628801f64125": {
+      "title": "Auxiliar de Tienda",
+      "empresa": "Homecenter Sodimac Arica",
       "fechas": "18/11/26 - 18/11/26",
-      "horas": "08:30 - 12:30"
-    },
-    "da8a863ae72170e1": {
-      "title": "Apoyo Evento General",
-      "empresa": "Falabella Arica",
-      "fechas": "18/11/26 - 18/11/26",
-      "horas": "16:30 - 20:30"
+      "horas": "16:30 - 21:00"
     },
     "dcb5a4400d2f451b": {
       "title": "Auxiliar de Tienda",
       "empresa": "Homecenter Sodimac Arica",
       "fechas": "18/11/26 - 18/11/26",
       "horas": "08:00 - 15:00"
+    },
+    "40e177bab01e4763": {
+      "title": "Apoyo Evento General",
+      "empresa": "Falabella Arica",
+      "fechas": "18/11/26 - 18/11/26",
+      "horas": "08:30 - 12:30"
     }
   }
 }
